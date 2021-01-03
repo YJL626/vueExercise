@@ -7,7 +7,7 @@
       v-for="item in exerciseList"
       :key="item.cTime"
     >
-      {{ item.title }}
+      {{ stringAddBlankSpace(item.title) }}
     </a>
   </div>
 </template>
@@ -22,6 +22,12 @@ import { Exercise } from "@/type";
 })
 export default class DemoList extends Vue {
   exerciseList!: Exercise[];
+  stringAddBlankSpace(value: string): string {
+    // @ts-ignore
+    return value
+      .replace(/[A-Z]/g, (match) => " " + match.toLowerCase())
+      .replace(/^\w/, (str) => str.toUpperCase());
+  }
 }
 </script>
 
