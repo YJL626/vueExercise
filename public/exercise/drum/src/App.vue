@@ -1,29 +1,84 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+    <div class="heaterItem-container">
+      <HeaterItem
+        v-for="(drumPianoItemList, index) in drumPianoList"
+        :key="index"
+        :drumPianoItemList="drumPianoItemList"
+        :currentInstruments="currentInstruments"
+      />
+    </div>
+    <div class="control-container">
+      <Range
+        :rangeBlockPlace="rangeBlockPlace"
+        @range-move="refreshRangeBlockPlace"
+        class="range"
+      />
+      <button @click="musicalInstrumentChange">1111</button>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import HelloWorld from './components/HelloWorld.vue';
+import { Component, Vue } from "vue-property-decorator";
+import HeaterItem from "@/components/HeaterItem.vue";
+import Range from "@/components/Range.vue";
+import { drumPianoList } from "@/store/store.ts";
 
 @Component({
   components: {
-    HelloWorld,
+    HeaterItem,
+    Range,
   },
 })
-export default class App extends Vue {}
+export default class App extends Vue {
+  drumPianoList = drumPianoList;
+  currentInstruments = 0;
+  rangeBlockPlace = 0.5;
+  musicalInstrumentChange(value: number) {
+    this.currentInstruments = 1;
+    if (this.currentInstruments) {
+      console.log(1);
+      
+      this.currentInstruments = 1;
+    } else {
+      this.currentInstruments = 0;
+    }
+  }
+  refreshRangeBlockPlace(value: number) {
+    this.rangeBlockPlace = value;
+  }
+}
 </script>
 
 <style lang="scss">
+@import "~@/assets/css/variable.scss";
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 700px;
+  height: 500px;
+  margin: 0 auto;
+  border: 5px solid #ffa500;
+  background-color: $container-color;
+  .heaterItem-container {
+    flex: 1 1 50%;
+    display: flex;
+    flex-wrap: wrap;
+    & > * {
+      flex: 1 1 33%;
+    }
+  }
+  .control-container {
+    flex: 1 1 30%;
+    .range {
+      width: 90%;
+    }
+  }
 }
 </style>
