@@ -2,7 +2,7 @@ import { CalculatorButton, buttonType } from "@/type.ts";
 const buttonList: CalculatorButton[] = [];
 //计算器第一行
 buttonList.push(new CalculatorButton(buttonType[2], "AC", "#AC3939"));
-const firstLineButton = ["/", "X"].map(
+const firstLineButton = ["/", "*"].map(
   (item) => new CalculatorButton(buttonType[1], item, "#666")
 );
 buttonList.push(...firstLineButton);

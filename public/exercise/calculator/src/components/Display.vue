@@ -1,31 +1,37 @@
 <template>
   <div class="display">
-    <p>1</p>
-    <p>2</p>
+    <p class="value">{{ value }}</p>
+    <p class="input">{{ input }}</p>
   </div>
 </template>
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
 @Options({
-  props: {},
+  name: "Display",
+  props: ["input", "value"],
 })
-export default class extends Vue {}
+export default class Display extends Vue {
+  input!: string;
+  value!: string;
+}
 </script>
 <style scoped lang="scss">
 @import "~@/assets/variable.scss";
-.display {
-  height: 70px;
-}
+
 p {
-  text-align: right;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
   &:nth-child(1) {
-    line-height: 35px;
+    line-height: 1;
+    height: 50%;
     font-size: 18px;
     color: $calculator-value-color;
   }
   &:nth-child(2) {
     color: #fff;
-    line-height: 35px;
+    height: 50%;
+
     font-size: 22px;
   }
 }
