@@ -21,7 +21,7 @@
       @reset="reset"
     />
   </div>
-  <video src="~@/assets/hit.mp3" ref="video"></video>
+  <video src="~@/assets/hit.mp3" class="video" ref="video"></video>
 </template>
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
@@ -69,7 +69,8 @@ export default class App extends Vue {
   timeLengthChange(value: number, type: string) {
     /break/i.test(type) && (this.breakLengh = +value);
     /session/i.test(type) && (this.sessionLengh = +value);
-
+    if (this.breakLengh < 0) this.breakLengh = 1;
+    if (this.sessionLengh < 0) this.sessionLengh = 1;
     this.clockState === "running" || this.clockState === "stopped"
       ? null
       : this.reset();
@@ -113,5 +114,8 @@ export default class App extends Vue {
       flex: 1;
     }
   }
+}
+.video {
+  display: none;
 }
 </style>
